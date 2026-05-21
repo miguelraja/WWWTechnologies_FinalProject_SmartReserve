@@ -1,0 +1,25 @@
+name: PHP Lint Check (CI/CD Pipeline)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+
+    - name: Check for PHP Syntax Errors (Lint)
+      run: |
+        echo "Starting automated syntax verification..."
+        find . -name "*.php" -exec php -l {} \;
